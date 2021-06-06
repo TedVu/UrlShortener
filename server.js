@@ -1,13 +1,19 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const ShortUrl = require("./models/shortUrl");
 const { generate } = require("./api/bitly");
+
 const app = express();
 
-mongoose.connect("mongodb://localhost/urlShortener", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/urlShortener",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
@@ -30,5 +36,8 @@ app.get("/:shortUrl", async (req, res) => {
   shortUrl.save();
   res.redirect(shortUrl.full);
 });
+
+if (process.env.NODE_ENV === "production") {
+}
 
 app.listen(process.env.PORT || 3001);
