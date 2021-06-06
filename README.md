@@ -1,7 +1,14 @@
-﻿# UrlShortener
+# Url Shortener
 
-URL Shortener project built with the following technologies:
+## Project Brief
 
-Boostrap 
-NodeJS
-MongoDB
+A simple Url Shortener project with the focus on learning to build a fullstack application with MERN stack.
+
+## Project Tools and Technologies
+
+- Boostrap
+- NodeJS
+- MongoDB
+- Express
+- EJS
+
