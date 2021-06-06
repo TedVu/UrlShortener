@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const ShortUrl = require("./models/shortUrl");
+const { generate } = require("./api/bitly");
 const app = express();
 
 mongoose.connect("mongodb://localhost/urlShortener", {
@@ -12,9 +13,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.post("/shortUrls", async (req, res) => {
   // save urls
-  await ShortUrl.create({ full: req.body.fullUrl });
+  const link = await generate();
+  console.log("LINK IS :" + link);
+  // await ShortUrl.create({ full: req.body.fullUrl, short: link });
   res.redirect("/");
 });
+
 app.get("/", async (req, res) => {
   const shortUrls = await ShortUrl.find();
   res.render("index", { shortUrls: shortUrls });
@@ -31,4 +35,4 @@ app.get("/:shortUrl", async (req, res) => {
   res.redirect(shortUrl.full);
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3001);
