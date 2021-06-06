@@ -1,32 +1,28 @@
-var request = require("request");
+require("dotenv").config();
 
-var finalLink = generate();
-var link = "";
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    const obj = JSON.parse(body);
-    console.log("DEBUG: " + obj.link);
-    link = obj.link;
-  }
-}
+const request = require("request");
+const ShortUrl = require("../models/shortUrl");
 
-function generate(urlParams) {
-  var dataString = `{ "long_url": "${urlParams}", "domain": "bit.ly", "group_guid": "Bl661ygkjWu" }`;
-  var headers = {
-    Authorization: "Bearer 8ef40aa6b56ea0f97ad21889b39db532b4105dd1",
+async function generate(urlParams, res) {
+  const dataString = `{ "long_url": "${urlParams}", "domain": "bit.ly", "group_guid": "${process.env.BITLY_API_GROUP}" }`;
+  const headers = {
+    Authorization: `Bearer ${process.env.BITLY_API_TOKEN}`,
     "Content-Type": "application/json",
   };
-  var options = {
+  const options = {
     url: "https://api-ssl.bitly.com/v4/shorten",
     method: "POST",
     headers: headers,
     body: dataString,
   };
-  request(options, callback);
-  return link;
+  await request(options, async (error, response, body) => {
+    const obj = JSON.parse(body);
+    const link = obj.link;
+    await ShortUrl.create({ full: urlParams, short: link });
+    res.redirect("/");
+  });
 }
 
 module.exports = {
   generate,
-  finalLink,
 };

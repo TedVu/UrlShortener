@@ -13,10 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.post("/shortUrls", async (req, res) => {
   // save urls
-  const link = await generate(req.body.fullUrl);
-  console.log("LINK IS :" + link);
-  // await ShortUrl.create({ full: req.body.fullUrl, short: link });
-  res.redirect("/");
+  await generate(req.body.fullUrl, res);
 });
 
 app.get("/", async (req, res) => {
@@ -30,7 +27,6 @@ app.get("/:shortUrl", async (req, res) => {
     return res.sendStatus(404);
   }
 
-  shortUrl.clicks++;
   shortUrl.save();
   res.redirect(shortUrl.full);
 });

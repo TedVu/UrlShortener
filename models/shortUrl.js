@@ -9,11 +9,6 @@ const shortUrlSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  clicks: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
 });
 
 module.exports = mongoose.model("ShortUrl", shortUrlSchema);
