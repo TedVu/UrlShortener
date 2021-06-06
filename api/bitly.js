@@ -1,20 +1,5 @@
 var request = require("request");
 
-var headers = {
-  Authorization: "Bearer 8ef40aa6b56ea0f97ad21889b39db532b4105dd1",
-  "Content-Type": "application/json",
-};
-
-var dataString =
-  '{ "long_url": "https://dev.bitly.com", "domain": "bit.ly", "group_guid": "Bl661ygkjWu" }';
-
-var options = {
-  url: "https://api-ssl.bitly.com/v4/shorten",
-  method: "POST",
-  headers: headers,
-  body: dataString,
-};
-
 var finalLink = generate();
 var link = "";
 function callback(error, response, body) {
@@ -25,7 +10,18 @@ function callback(error, response, body) {
   }
 }
 
-function generate() {
+function generate(urlParams) {
+  var dataString = `{ "long_url": "${urlParams}", "domain": "bit.ly", "group_guid": "Bl661ygkjWu" }`;
+  var headers = {
+    Authorization: "Bearer 8ef40aa6b56ea0f97ad21889b39db532b4105dd1",
+    "Content-Type": "application/json",
+  };
+  var options = {
+    url: "https://api-ssl.bitly.com/v4/shorten",
+    method: "POST",
+    headers: headers,
+    body: dataString,
+  };
   request(options, callback);
   return link;
 }
