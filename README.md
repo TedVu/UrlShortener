@@ -20,7 +20,7 @@ http://www.tedvuurlshortener.me/
 2. cd UrlShortener
 3. npm install
 4. node ./server.js
-5. Navigate to [https://localhost:3001]()
+5. Navigate to [http://localhost:3001]()
 
 ## Project Tools and Technologies
 
