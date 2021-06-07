@@ -12,7 +12,7 @@ A simple Url Shortener project with the focus on learning to build a fullstack a
 
 The project can be access from the following url: 
 
-http://www.tedvuurlshortener.me/ 
+https://www.tedvuurlshortener.me/ 
 
 ## How to run locally
 
