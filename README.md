@@ -1,4 +1,4 @@
-# [Url Shortener](http://www.tedvuurlshortener.me/) - A MERN Stack URL Shortener projects
+# [Url Shortener](https://www.tedvuurlshortener.me/) - A MERN Stack URL Shortener projects
 
 ## Author
 
